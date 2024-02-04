@@ -1,47 +1,48 @@
 import * as Phaser from 'phaser';
+import { createPlayer, loadSprites } from './player';
 
-export default class Demo extends Phaser.Scene
-{
-    constructor ()
-    {
-        super('demo');
-    }
+export default class Demo extends Phaser.Scene {
+  player;
+  constructor ()
+  {
+    super('demo');
+  }
 
-    preload ()
-    {
-        this.load.image('logo', 'assets/phaser3-logo.png');
-        this.load.image('libs', 'assets/libs.png');
-        this.load.glsl('bundle', 'assets/plasma-bundle.glsl.js');
-        this.load.glsl('stars', 'assets/starfields.glsl.js');
-    }
+  preload ()
+  {
+    this.load.image('tiles', './assets/map/grass.png');
+    this.load.image('border', './assets/map/water.png');
+    this.load.tilemapTiledJSON('map', './assets/map/map.json');
 
-    create ()
-    {
-        this.add.shader('RGB Shift Field', 0, 0, 800, 600).setOrigin(0);
+    loadSprites(this);
+  }
+  
+  create ()
+  {
+    const map = this.make.tilemap({ key: 'map' });
+    const tilesetGrass = map.addTilesetImage('grass', 'tiles');
+    const tilesetWater = map.addTilesetImage('water', 'border');
+    
+    const ground = map.createLayer('grass', tilesetGrass, 0, 0);
+    const water = map.createLayer('water', tilesetWater, 0, 0);
 
-        this.add.shader('Plasma', 0, 412, 800, 172).setOrigin(0);
-
-        this.add.image(400, 300, 'libs');
-
-        const logo = this.add.image(400, 70, 'logo');
-
-        this.tweens.add({
-            targets: logo,
-            y: 350,
-            duration: 1500,
-            ease: 'Sine.inOut',
-            yoyo: true,
-            repeat: -1
-        })
-    }
+    this.player = createPlayer(this);
+    this.player.anims.play("player_idle", true);
+  }
 }
 
 const config = {
-    type: Phaser.AUTO,
-    backgroundColor: '#125555',
-    width: 800,
-    height: 600,
-    scene: Demo
+  type: Phaser.AUTO,
+  backgroundColor: '#125555',
+  width: 800,
+  height: 640,
+  scene: Demo,
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 0 },
+    }
+  }
 };
 
 const game = new Phaser.Game(config);
