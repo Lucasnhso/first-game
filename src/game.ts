@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { createPlayer, loadPlayerSprites } from './player';
 import { createControls, configControls } from './controls';
+import { loadBulletSprites } from './bullet'
 
 export default class Demo extends Phaser.Scene {
   player;
@@ -19,6 +20,7 @@ export default class Demo extends Phaser.Scene {
     this.load.tilemapTiledJSON('map', './assets/map/map.json');
 
     loadPlayerSprites(this);
+    loadBulletSprites(this);
   }
   
   create ()

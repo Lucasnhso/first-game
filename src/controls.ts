@@ -1,4 +1,5 @@
 import { Player } from './player';
+import { createBullet } from './bullet';
 
 export const createControls = (
   scene: Phaser.Scene
@@ -35,7 +36,7 @@ export const configControls = (
   }
   if (controls.space.isDown) {
     if(!player.isAttacking) {
-      attack(player);
+      attack(player, scene);
     }
     return;
   }
@@ -65,8 +66,9 @@ const moveDown = (player): void => {
   player.setVelocityY(defaultVelocity);
 };
 
-const attack = (player: Player): void => {
+const attack = (player: Player, scene: Phaser.Scene): void => {
   player.isAttacking = true;
   player.anims.play('player_attack', true);
+  createBullet(player, scene);
 };
 
