@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { createPlayer, loadPlayerSprites } from './player';
 import { createControls, configControls } from './controls';
 import { loadBulletSprites } from './bullet'
+import { createSlimeAnimations, loadSlimeSprites, createSlime } from './slime';
 
 export default class Demo extends Phaser.Scene {
   player;
@@ -21,6 +22,7 @@ export default class Demo extends Phaser.Scene {
 
     loadPlayerSprites(this);
     loadBulletSprites(this);
+    loadSlimeSprites(this);
   }
   
   create ()
@@ -40,6 +42,10 @@ export default class Demo extends Phaser.Scene {
     this.player.anims.play("player_idle", true);
 
     this.controls = createControls(this);
+
+    createSlimeAnimations(this);
+
+    createSlime(this);
   }
 
   update() {
@@ -48,6 +54,7 @@ export default class Demo extends Phaser.Scene {
 }
 
 const config = {
+  pixelArt: true,
   type: Phaser.AUTO,
   backgroundColor: '#125555',
   width: 800,
