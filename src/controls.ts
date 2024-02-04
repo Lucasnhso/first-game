@@ -44,24 +44,24 @@ export const configControls = (
 };
 
 const defaultVelocity = 200;
-const moveRight = (player): void => {
+const moveRight = (player: Player): void => {
   player.setFlipX(false);
   player.anims.play('player_walk', true);
   player.setVelocityX(defaultVelocity);
 };
 
-const moveLeft = (player): void => {
-  player.setFlip(true);
+const moveLeft = (player: Player): void => {
+  player.setFlipX(true);
   player.anims.play('player_walk', true);
   player.setVelocityX(-defaultVelocity);
 };
 
-const moveUp = (player): void => {
+const moveUp = (player: Player): void => {
   player.anims.play('player_walk', true);
   player.setVelocityY(-defaultVelocity);
 };
 
-const moveDown = (player): void => {
+const moveDown = (player: Player): void => {
   player.anims.play('player_walk', true);
   player.setVelocityY(defaultVelocity);
 };

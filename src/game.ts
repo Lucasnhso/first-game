@@ -1,12 +1,12 @@
 import * as Phaser from 'phaser';
-import { createPlayer, loadPlayerSprites } from './player';
+import { createPlayer, loadPlayerSprites, Player } from './player';
 import { createControls, configControls } from './controls';
 import { loadBulletSprites } from './bullet'
 import { createSlimeAnimations, loadSlimeSprites, createSlime } from './slime';
 
 export default class Demo extends Phaser.Scene {
-  player;
-  controls;
+  player: Player;
+  controls: Phaser.Types.Input.Keyboard.CursorKeys;
   water;
 
   constructor ()

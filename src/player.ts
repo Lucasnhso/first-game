@@ -9,7 +9,7 @@ export const createPlayer = (scene: Phaser.Scene) => {
   return player;
 }
 
-export const loadPlayerSprites = ( scene: Phaser.Scene): void => {
+export const loadPlayerSprites = (scene: Phaser.Scene): void => {
   scene.load.spritesheet('player_idle', './assets/player/idle.png', {
     frameWidth: 83,
     frameHeight: 64,
