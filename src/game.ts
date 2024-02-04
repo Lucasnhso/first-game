@@ -2,12 +2,12 @@ import * as Phaser from 'phaser';
 import { createPlayer, loadPlayerSprites, Player } from './player';
 import { createControls, configControls } from './controls';
 import { loadBulletSprites } from './bullet'
-import { createSlimeAnimations, loadSlimeSprites, createSlime } from './slime';
+import { loadSlimeSprites, createSlime } from './slime';
 
 export default class Demo extends Phaser.Scene {
   player: Player;
   controls: Phaser.Types.Input.Keyboard.CursorKeys;
-  water;
+  water: Phaser.Tilemaps.TilemapLayer;
 
   constructor ()
   {
@@ -42,8 +42,6 @@ export default class Demo extends Phaser.Scene {
     this.player.anims.play("player_idle", true);
 
     this.controls = createControls(this);
-
-    createSlimeAnimations(this);
 
     createSlime(this);
   }

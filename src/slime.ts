@@ -15,10 +15,13 @@ export const createSlimeAnimations = (scene: Phaser.Scene): void => {
     }),
     frameRate: 8,
     repeat: -1,
+
   });
 }
 
 export const createSlime = (scene: Phaser.Scene) => {
+  createSlimeAnimations(scene);
   const slime = scene.physics.add.sprite(400, 200, "slime_idle").setScale(2);
   slime.anims.play("slime_idle", true);
+  return slime;
 }
