@@ -13,6 +13,10 @@ export const configControls = (
   player.setVelocityX(0);
   player.setVelocityY(0);
 
+  if (player.isAttacking) {
+    return
+  }
+
   if (controls.right.isDown) {
     moveRight(player);
     return;
@@ -35,9 +39,7 @@ export const configControls = (
     }
     return;
   }
-  if (!player.isAttacking) {
-    player.anims.play("player_idle", true);
-  }
+  player.anims.play("player_idle", true);
 };
 
 const defaultVelocity = 200;

@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { createPlayer, loadSprites } from './player';
+import { createPlayer, loadPlayerSprites } from './player';
 import { createControls, configControls } from './controls';
 
 export default class Demo extends Phaser.Scene {
@@ -18,7 +18,7 @@ export default class Demo extends Phaser.Scene {
     this.load.image('border', './assets/map/water.png');
     this.load.tilemapTiledJSON('map', './assets/map/map.json');
 
-    loadSprites(this);
+    loadPlayerSprites(this);
   }
   
   create ()
