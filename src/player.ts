@@ -2,7 +2,7 @@ export interface Player extends Phaser.Physics.Arcade.Sprite {
   isAttacking?: boolean;
 }
 
-export const createPlayer = (scene: Phaser.Scene) => {
+export const createPlayer = (scene: Phaser.Scene): Player => {
   const player = scene.physics.add.sprite(200, 200, 'player_idle');
   createPlayerAnimations(scene, player);
 
