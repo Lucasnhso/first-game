@@ -1,8 +1,5 @@
 import * as Phaser from 'phaser';
-
-const spritesKey = {
-  idle: 'slime_idle'
-}
+import { slimeSpriteKey } from '../utils/consts';
 
 export class Slime {
   gameObject: Phaser.Physics.Arcade.Sprite;
@@ -16,14 +13,14 @@ export class Slime {
   
   private create(x: number, y: number): void {
     this.createAnimations();
-    this.gameObject = this.scene.physics.add.sprite(x, y, spritesKey.idle).setScale(2);
-    this.gameObject.anims.play(spritesKey.idle, true);
+    this.gameObject = this.scene.physics.add.sprite(x, y, slimeSpriteKey).setScale(2);
+    this.gameObject.anims.play(slimeSpriteKey, true);
     this.addMovimentation()
   }
   private createAnimations(): void {
     this.scene.anims.create({
-      key: spritesKey.idle,
-      frames: this.scene.anims.generateFrameNames(spritesKey.idle, {
+      key: slimeSpriteKey,
+      frames: this.scene.anims.generateFrameNames(slimeSpriteKey, {
         start: 0,
         end: 6
       }),
@@ -57,7 +54,7 @@ export class Slime {
     }
   }
   static loadSprites(scene: Phaser.Scene): void {
-    scene.load.spritesheet(spritesKey.idle, './assets/slime/idle.png', {
+    scene.load.spritesheet(slimeSpriteKey, './assets/slime/idle.png', {
       frameWidth: 20,
       frameHeight: 17,
       spacing: 0

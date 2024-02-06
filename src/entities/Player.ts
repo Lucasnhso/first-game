@@ -1,11 +1,7 @@
+import { playerSpriteKeys } from "../utils/consts";
+
 interface PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   isAttacking?: boolean;
-}
-
-const spritesKey = {
-  idle: 'player_idle',
-  walk: 'player_walk',
-  attack: 'player_attack',
 }
 
 export class Player {
@@ -19,13 +15,13 @@ export class Player {
   }
 
   private create(x: number, y: number): void {
-    this.gameObject = this.scene.physics.add.sprite(x, y, spritesKey.idle);
+    this.gameObject = this.scene.physics.add.sprite(x, y, playerSpriteKeys.idle);
     this.createAnimations();
   }
   private createAnimations (): void {
     this.scene.anims.create({
-      key: spritesKey.idle,
-      frames: this.scene.anims.generateFrameNames(spritesKey.idle, {
+      key: playerSpriteKeys.idle,
+      frames: this.scene.anims.generateFrameNames(playerSpriteKeys.idle, {
         start: 0,
         end: 7
       }),
@@ -35,8 +31,8 @@ export class Player {
     });
   
     this.scene.anims.create({
-      key: spritesKey.walk,
-      frames: this.scene.anims.generateFrameNames(spritesKey.walk, {
+      key: playerSpriteKeys.walk,
+      frames: this.scene.anims.generateFrameNames(playerSpriteKeys.walk, {
         start: 0,
         end: 6
       }),
@@ -45,8 +41,8 @@ export class Player {
     });
   
     this.scene.anims.create({
-      key: spritesKey.attack,
-      frames: this.scene.anims.generateFrameNames(spritesKey.attack, {
+      key: playerSpriteKeys.attack,
+      frames: this.scene.anims.generateFrameNames(playerSpriteKeys.attack, {
         start: 0,
         end: 3
       }),
@@ -57,7 +53,7 @@ export class Player {
     this.gameObject.on(
       'animationcomplete',
       (animation, frame) => {
-        if (animation.key === spritesKey.attack) {
+        if (animation.key === playerSpriteKeys.attack) {
           this.gameObject.isAttacking = false;
         }
       },
@@ -66,19 +62,19 @@ export class Player {
   };
 
   static loadSprites(scene: Phaser.Scene): void {
-    scene.load.spritesheet(spritesKey.idle, './assets/player/idle.png', {
+    scene.load.spritesheet(playerSpriteKeys.idle, './assets/player/idle.png', {
       frameWidth: 83,
       frameHeight: 64,
       spacing: 45
     });
   
-    scene.load.spritesheet(spritesKey.walk, './assets/player/walk.png', {
+    scene.load.spritesheet(playerSpriteKeys.walk, './assets/player/walk.png', {
       frameWidth: 83,
       frameHeight: 64,
       spacing: 45
     });
   
-    scene.load.spritesheet(spritesKey.attack, './assets/player/attack.png', {
+    scene.load.spritesheet(playerSpriteKeys.attack, './assets/player/attack.png', {
       frameWidth: 83,
       frameHeight: 64,
       spacing: 45
