@@ -1,5 +1,7 @@
 import * as Phaser from 'phaser';
 
+export interface Slime extends Phaser.Physics.Arcade.Sprite {}
+
 export const loadSlimeSprites = (scene: Phaser.Scene): void => {
   scene.load.spritesheet('slime_idle', './assets/slime/idle.png', {
     frameWidth: 20,

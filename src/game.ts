@@ -2,11 +2,11 @@ import * as Phaser from 'phaser';
 import { createPlayer, loadPlayerSprites, Player } from './player';
 import { createControls, configControls } from './controls';
 import { loadBulletSprites } from './bullet'
-import { loadSlimeSprites, createSlime, changeSlimeDirection } from './slime';
+import { loadSlimeSprites, createSlime, changeSlimeDirection, Slime } from './slime';
 
 export default class Game extends Phaser.Scene {
   player: Player;
-  slime:  Phaser.Physics.Arcade.Sprite;
+  slime:  Slime;
   controls: Phaser.Types.Input.Keyboard.CursorKeys;
   water: Phaser.Tilemaps.TilemapLayer;
   bullets = [];
