@@ -1,5 +1,5 @@
-import { Player } from './player';
-import { createBullet } from './bullet';
+import { Player } from './entities/Player';
+import { createBullet } from './entities/Bullet';
 
 export const createControls = (
   scene: Phaser.Scene
@@ -11,10 +11,10 @@ export const configControls = (
   controls: Phaser.Types.Input.Keyboard.CursorKeys,
   scene: Phaser.Scene
 ): void => {
-  player.setVelocityX(0);
-  player.setVelocityY(0);
+  player.sprite.setVelocityX(0);
+  player.sprite.setVelocityY(0);
 
-  if (player.isAttacking) {
+  if (player.sprite.isAttacking) {
     return
   }
 
@@ -35,40 +35,40 @@ export const configControls = (
     return;
   }
   if (controls.space.isDown) {
-    if(!player.isAttacking) {
+    if(!player.sprite.isAttacking) {
       attack(player, scene);
     }
     return;
   }
-  player.anims.play("player_idle", true);
+  player.sprite.anims.play("player_idle", true);
 };
 
 const defaultVelocity = 200;
 const moveRight = (player: Player): void => {
-  player.setFlipX(false);
-  player.anims.play('player_walk', true);
-  player.setVelocityX(defaultVelocity);
+  player.sprite.setFlipX(false);
+  player.sprite.anims.play('player_walk', true);
+  player.sprite.setVelocityX(defaultVelocity);
 };
 
 const moveLeft = (player: Player): void => {
-  player.setFlipX(true);
-  player.anims.play('player_walk', true);
-  player.setVelocityX(-defaultVelocity);
+  player.sprite.setFlipX(true);
+  player.sprite.anims.play('player_walk', true);
+  player.sprite.setVelocityX(-defaultVelocity);
 };
 
 const moveUp = (player: Player): void => {
-  player.anims.play('player_walk', true);
-  player.setVelocityY(-defaultVelocity);
+  player.sprite.anims.play('player_walk', true);
+  player.sprite.setVelocityY(-defaultVelocity);
 };
 
 const moveDown = (player: Player): void => {
-  player.anims.play('player_walk', true);
-  player.setVelocityY(defaultVelocity);
+  player.sprite.anims.play('player_walk', true);
+  player.sprite.setVelocityY(defaultVelocity);
 };
 
 const attack = (player: Player, scene: Phaser.Scene): void => {
-  player.isAttacking = true;
-  player.anims.play('player_attack', true);
+  player.sprite.isAttacking = true;
+  player.sprite.anims.play('player_attack', true);
   createBullet(player, scene);
 };
 

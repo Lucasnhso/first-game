@@ -1,8 +1,8 @@
 import * as Phaser from 'phaser';
-import { createPlayer, loadPlayerSprites, Player } from './player';
+import { Player } from './entities/Player';
 import { createControls, configControls } from './controls';
-import { loadBulletSprites } from './bullet'
-import { loadSlimeSprites, createSlime, changeSlimeDirection, Slime } from './slime';
+import { loadBulletSprites } from './entities/Bullet'
+import { loadSlimeSprites, createSlime, changeSlimeDirection, Slime } from './entities/Slime';
 
 export default class Game extends Phaser.Scene {
   player: Player;
@@ -22,7 +22,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('border', './assets/map/water.png');
     this.load.tilemapTiledJSON('map', './assets/map/map.json');
 
-    loadPlayerSprites(this);
+    Player.loadSprites(this);
     loadBulletSprites(this);
     loadSlimeSprites(this);
   }
@@ -38,16 +38,16 @@ export default class Game extends Phaser.Scene {
 
     this.water.setCollisionByProperty({ collider: true});
 
-    this.player = createPlayer(this);
-    this.physics.add.overlap(this.player, this.water);
+    this.player = new Player(this, 200, 200);
+    this.physics.add.overlap(this.player.sprite, this.water);
     
-    this.player.anims.play("player_idle", true);
+    this.player.sprite.anims.play("player_idle", true);
     
     this.controls = createControls(this);
     
     this.slime = createSlime(this);
     // createSlime(this);
-    this.physics.add.collider(this.player, this.slime, this.handlePlayerSlimeCollision);
+    this.physics.add.collider(this.player.sprite, this.slime, this.handlePlayerSlimeCollision);
 
     this.physics.add.collider(this.slime, this.water);
 
