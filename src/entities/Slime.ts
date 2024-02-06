@@ -18,6 +18,7 @@ export class Slime {
     this.createAnimations();
     this.sprite = this.scene.physics.add.sprite(x, y, spritesKey.idle).setScale(2);
     this.sprite.anims.play(spritesKey.idle, true);
+    this.addMovimentation()
   }
   private createAnimations(): void {
     this.scene.anims.create({
@@ -31,7 +32,15 @@ export class Slime {
   
     });
   }
-  changeSlimeDirection() {
+  private addMovimentation() {
+    this.scene.time.addEvent({
+      delay: 2000,
+      loop: true,
+      callback: this.changeSlimeDirection(),
+      callbackScope: this.sprite,
+    });
+  }
+  private changeSlimeDirection() {
     return () => {
       const speed = 50;
       const direction = Phaser.Math.RND.pick([-1, 1]);

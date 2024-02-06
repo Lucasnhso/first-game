@@ -41,13 +41,6 @@ export default class Game extends Phaser.Scene {
     this.physics.add.collider(this.player.sprite, this.slime.sprite, this.handlePlayerSlimeCollision);
 
     this.physics.add.collider(this.slime.sprite, this.water);
-
-    this.time.addEvent({
-      delay: 2000, // intervalo em milissegundos para mudar a direção (2 segundos neste exemplo)
-      loop: true,
-      callback: this.slime.changeSlimeDirection(),
-      callbackScope: this.slime,
-    });
   }
 
   update() {
