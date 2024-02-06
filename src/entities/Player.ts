@@ -9,7 +9,7 @@ const spritesKey = {
 }
 
 export class Player {
-  scene: Phaser.Scene;
+  private scene: Phaser.Scene;
   sprite: PlayerSprite;
 
   constructor(scene: Phaser.Scene, x: number, y: number){
