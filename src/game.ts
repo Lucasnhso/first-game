@@ -2,12 +2,14 @@ import * as Phaser from 'phaser';
 import { createPlayer, loadPlayerSprites, Player } from './player';
 import { createControls, configControls } from './controls';
 import { loadBulletSprites } from './bullet'
-import { loadSlimeSprites, createSlime } from './slime';
+import { loadSlimeSprites, createSlime, changeSlimeDirection } from './slime';
 
 export default class Demo extends Phaser.Scene {
   player: Player;
+  slime:  Phaser.Physics.Arcade.Sprite;
   controls: Phaser.Types.Input.Keyboard.CursorKeys;
   water: Phaser.Tilemaps.TilemapLayer;
+  bullets = [];
 
   constructor ()
   {
@@ -37,17 +39,35 @@ export default class Demo extends Phaser.Scene {
     this.water.setCollisionByProperty({ collider: true});
 
     this.player = createPlayer(this);
-    this.physics.add.collider(this.player, this.water);
-
+    this.physics.add.overlap(this.player, this.water);
+    
     this.player.anims.play("player_idle", true);
-
+    
     this.controls = createControls(this);
+    
+    this.slime = createSlime(this);
+    // createSlime(this);
+    this.physics.add.collider(this.player, this.slime, this.handlePlayerSlimeCollision);
 
-    createSlime(this);
+    this.physics.add.collider(this.slime, this.water);
+
+    this.time.addEvent({
+      delay: 2000, // intervalo em milissegundos para mudar a direção (2 segundos neste exemplo)
+      loop: true,
+      callback: changeSlimeDirection(this.slime),
+      callbackScope: this.slime,
+    });
   }
 
   update() {
     configControls(this.player, this.controls, this);
+  }
+
+  handlePlayerSlimeCollision(slime, player) {
+    console.log('encostou');
+    // slime.setVelocityX(0);
+    // slime.setVelocityY(0);
+    // slime.destroy()
   }
 }
 

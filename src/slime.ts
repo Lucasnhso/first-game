@@ -25,3 +25,20 @@ export const createSlime = (scene: Phaser.Scene) => {
   slime.anims.play("slime_idle", true);
   return slime;
 }
+
+export const changeSlimeDirection = (slime) => {
+  return () => {
+    const speed = 50;
+    const direction = Phaser.Math.RND.pick([-1, 1]);
+    const velocity = speed * direction
+    const horizontalOrVertical = Phaser.Math.RND.pick(['X', 'Y']);
+  
+    if(horizontalOrVertical === 'X') {
+      slime.setVelocityX(velocity);
+      slime.setVelocityY(0);
+    } else {
+      slime.setVelocityX(0);
+      slime.setVelocityY(velocity);
+    }
+  }
+}
