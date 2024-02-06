@@ -1,5 +1,6 @@
 import { Player } from './';
 
+const imageKey = 'bullet';
 export class Bullet {
   private scene: Phaser.Scene;
   private player: Player;
@@ -15,7 +16,7 @@ export class Bullet {
     const x = this.player.gameObject.flipX ? this.player.gameObject.x - 40 : this.player.gameObject.x + 40;
     const y = this.player.gameObject.y - 18;
   
-    this.gameObject = this.scene.physics.add.image(x, y, "bullet").setScale(0.1)
+    this.gameObject = this.scene.physics.add.image(x, y, imageKey).setScale(0.1)
   
     if(this.player.gameObject.flipX) {
       this.gameObject.setVelocityX(-700)
@@ -25,7 +26,7 @@ export class Bullet {
     }
   }
   static loadSprites(scene: Phaser.Scene) {
-    scene.load.image("bullet", "./assets/bullet.png");
+    scene.load.image(imageKey, "./assets/bullet.png");
   }
 }
 
