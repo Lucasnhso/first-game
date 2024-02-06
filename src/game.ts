@@ -18,9 +18,7 @@ export default class Game extends Phaser.Scene {
 
   preload ()
   {
-    this.load.image('tiles', './assets/map/grass.png');
-    this.load.image('border', './assets/map/water.png');
-    this.load.tilemapTiledJSON('map', './assets/map/map.json');
+    this.loadMapAssets();
     this.loadSprites();
   }
   
@@ -70,6 +68,11 @@ export default class Game extends Phaser.Scene {
     Player.loadSprites(this);
     loadBulletSprites(this);
     loadSlimeSprites(this);
+  }
+  loadMapAssets() {
+    this.load.image('tiles', './assets/map/grass.png');
+    this.load.image('border', './assets/map/water.png');
+    this.load.tilemapTiledJSON('map', './assets/map/map.json');
   }
 }
 
