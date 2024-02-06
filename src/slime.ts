@@ -1,3 +1,5 @@
+import * as Phaser from 'phaser';
+
 export const loadSlimeSprites = (scene: Phaser.Scene): void => {
   scene.load.spritesheet('slime_idle', './assets/slime/idle.png', {
     frameWidth: 20,

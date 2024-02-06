@@ -4,7 +4,7 @@ import { createControls, configControls } from './controls';
 import { loadBulletSprites } from './bullet'
 import { loadSlimeSprites, createSlime, changeSlimeDirection } from './slime';
 
-export default class Demo extends Phaser.Scene {
+export default class Game extends Phaser.Scene {
   player: Player;
   slime:  Phaser.Physics.Arcade.Sprite;
   controls: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -13,7 +13,7 @@ export default class Demo extends Phaser.Scene {
 
   constructor ()
   {
-    super('demo');
+    super('game');
   }
 
   preload ()
@@ -77,7 +77,7 @@ const config = {
   backgroundColor: '#125555',
   width: 800,
   height: 640,
-  scene: Demo,
+  scene: Game,
   physics: {
     default: 'arcade',
     arcade: {
