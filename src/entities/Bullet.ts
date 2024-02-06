@@ -1,19 +1,31 @@
 import { Player } from './Player';
 
-export const loadBulletSprites = (scene: Phaser.Scene) => {
-  scene.load.image("bullet", "./assets/bullet.png");
-}
+export class Bullet {
+  private scene: Phaser.Scene;
+  private player: Player;
+  gameObject:  Phaser.Physics.Arcade.Image;
 
-export const createBullet = (player: Player, scene: Phaser.Scene) => {
-  const x = player.sprite.flipX ? player.sprite.x - 40 : player.sprite.x + 40;
-  const y = player.sprite.y - 18;
-
-  const bullet = scene.physics.add.image(x, y, "bullet").setScale(0.1)
-
-  if(player.sprite.flipX) {
-    bullet.setVelocityX(-700)
-    bullet.setFlipX(true);
-  } else {
-    bullet.setVelocityX(700)
+  constructor( player: Player, scene: Phaser.Scene) {
+    this.player = player;
+    this.scene = scene;
+    this.create()
+  }
+  
+  private create() {
+    const x = this.player.gameObject.flipX ? this.player.gameObject.x - 40 : this.player.gameObject.x + 40;
+    const y = this.player.gameObject.y - 18;
+  
+    this.gameObject = this.scene.physics.add.image(x, y, "bullet").setScale(0.1)
+  
+    if(this.player.gameObject.flipX) {
+      this.gameObject.setVelocityX(-700)
+      this.gameObject.setFlipX(true);
+    } else {
+      this.gameObject.setVelocityX(700)
+    }
+  }
+  static loadSprites(scene: Phaser.Scene) {
+    scene.load.image("bullet", "./assets/bullet.png");
   }
 }
+

@@ -1,5 +1,5 @@
 import { Player } from './entities/Player';
-import { createBullet } from './entities/Bullet';
+import { Bullet } from './entities/Bullet';
 
 export const createControls = (
   scene: Phaser.Scene
@@ -69,6 +69,6 @@ const moveDown = (player: Player): void => {
 const attack = (player: Player, scene: Phaser.Scene): void => {
   player.gameObject.isAttacking = true;
   player.gameObject.anims.play('player_attack', true);
-  createBullet(player, scene);
+  new Bullet(player, scene);
 };
 
