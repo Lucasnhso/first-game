@@ -1,5 +1,4 @@
-import { Player } from './entities/Player';
-import { Bullet } from './entities/Bullet';
+import { Player, Bullet } from './entities';
 
 export const createControls = (
   scene: Phaser.Scene

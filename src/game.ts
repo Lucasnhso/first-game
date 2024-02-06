@@ -1,8 +1,6 @@
 import * as Phaser from 'phaser';
-import { Player } from './entities/Player';
+import { Player, Bullet, Slime } from './entities';
 import { createControls, configControls } from './controls';
-import { Bullet } from './entities/Bullet'
-import { Slime } from './entities/Slime';
 
 export default class Game extends Phaser.Scene {
   player: Player;
