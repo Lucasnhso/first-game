@@ -2,27 +2,30 @@ interface PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   isAttacking?: boolean;
 }
 
+const spritesKey = {
+  idle: 'player_idle',
+  walk: 'player_walk',
+  attack: 'player_attack',
+}
+
 export class Player {
-  idleKey: string;
   scene: Phaser.Scene;
   sprite: PlayerSprite;
 
   constructor(scene: Phaser.Scene, x: number, y: number){
-    const idleKey = 'player_idle'
-    this.idleKey = idleKey;
     this.scene = scene;
 
     this.create(x, y);
   }
 
   private create(x: number, y: number): void {
-    this.sprite = this.scene.physics.add.sprite(x, y, this.idleKey);
+    this.sprite = this.scene.physics.add.sprite(x, y, spritesKey.idle);
     this.createAnimations();
   }
   private createAnimations (): void {
     this.scene.anims.create({
-      key: 'player_idle',
-      frames: this.scene.anims.generateFrameNames('player_idle', {
+      key: spritesKey.idle,
+      frames: this.scene.anims.generateFrameNames(spritesKey.idle, {
         start: 0,
         end: 7
       }),
@@ -32,8 +35,8 @@ export class Player {
     });
   
     this.scene.anims.create({
-      key: 'player_walk',
-      frames: this.scene.anims.generateFrameNames('player_walk', {
+      key: spritesKey.walk,
+      frames: this.scene.anims.generateFrameNames(spritesKey.walk, {
         start: 0,
         end: 6
       }),
@@ -42,8 +45,8 @@ export class Player {
     });
   
     this.scene.anims.create({
-      key: 'player_attack',
-      frames: this.scene.anims.generateFrameNames('player_attack', {
+      key: spritesKey.attack,
+      frames: this.scene.anims.generateFrameNames(spritesKey.attack, {
         start: 0,
         end: 3
       }),
@@ -54,7 +57,7 @@ export class Player {
     this.sprite.on(
       'animationcomplete',
       (animation, frame) => {
-        if (animation.key === 'player_attack') {
+        if (animation.key === spritesKey.attack) {
           this.sprite.isAttacking = false;
         }
       },
@@ -63,19 +66,19 @@ export class Player {
   };
 
   static loadSprites(scene: Phaser.Scene): void {
-    scene.load.spritesheet('player_idle', './assets/player/idle.png', {
+    scene.load.spritesheet(spritesKey.idle, './assets/player/idle.png', {
       frameWidth: 83,
       frameHeight: 64,
       spacing: 45
     });
   
-    scene.load.spritesheet('player_walk', './assets/player/walk.png', {
+    scene.load.spritesheet(spritesKey.walk, './assets/player/walk.png', {
       frameWidth: 83,
       frameHeight: 64,
       spacing: 45
     });
   
-    scene.load.spritesheet('player_attack', './assets/player/attack.png', {
+    scene.load.spritesheet(spritesKey.attack, './assets/player/attack.png', {
       frameWidth: 83,
       frameHeight: 64,
       spacing: 45
