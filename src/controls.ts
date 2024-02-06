@@ -11,10 +11,10 @@ export const configControls = (
   controls: Phaser.Types.Input.Keyboard.CursorKeys,
   scene: Phaser.Scene
 ): void => {
-  player.sprite.setVelocityX(0);
-  player.sprite.setVelocityY(0);
+  player.gameObject.setVelocityX(0);
+  player.gameObject.setVelocityY(0);
 
-  if (player.sprite.isAttacking) {
+  if (player.gameObject.isAttacking) {
     return
   }
 
@@ -35,40 +35,40 @@ export const configControls = (
     return;
   }
   if (controls.space.isDown) {
-    if(!player.sprite.isAttacking) {
+    if(!player.gameObject.isAttacking) {
       attack(player, scene);
     }
     return;
   }
-  player.sprite.anims.play("player_idle", true);
+  player.gameObject.anims.play("player_idle", true);
 };
 
 const defaultVelocity = 200;
 const moveRight = (player: Player): void => {
-  player.sprite.setFlipX(false);
-  player.sprite.anims.play('player_walk', true);
-  player.sprite.setVelocityX(defaultVelocity);
+  player.gameObject.setFlipX(false);
+  player.gameObject.anims.play('player_walk', true);
+  player.gameObject.setVelocityX(defaultVelocity);
 };
 
 const moveLeft = (player: Player): void => {
-  player.sprite.setFlipX(true);
-  player.sprite.anims.play('player_walk', true);
-  player.sprite.setVelocityX(-defaultVelocity);
+  player.gameObject.setFlipX(true);
+  player.gameObject.anims.play('player_walk', true);
+  player.gameObject.setVelocityX(-defaultVelocity);
 };
 
 const moveUp = (player: Player): void => {
-  player.sprite.anims.play('player_walk', true);
-  player.sprite.setVelocityY(-defaultVelocity);
+  player.gameObject.anims.play('player_walk', true);
+  player.gameObject.setVelocityY(-defaultVelocity);
 };
 
 const moveDown = (player: Player): void => {
-  player.sprite.anims.play('player_walk', true);
-  player.sprite.setVelocityY(defaultVelocity);
+  player.gameObject.anims.play('player_walk', true);
+  player.gameObject.setVelocityY(defaultVelocity);
 };
 
 const attack = (player: Player, scene: Phaser.Scene): void => {
-  player.sprite.isAttacking = true;
-  player.sprite.anims.play('player_attack', true);
+  player.gameObject.isAttacking = true;
+  player.gameObject.anims.play('player_attack', true);
   createBullet(player, scene);
 };
 
