@@ -2,7 +2,7 @@ import * as Phaser from 'phaser';
 import { Player } from './entities/Player';
 import { createControls, configControls } from './controls';
 import { loadBulletSprites } from './entities/Bullet'
-import { loadSlimeSprites, createSlime, changeSlimeDirection, Slime } from './entities/Slime';
+import { Slime } from './entities/Slime';
 
 export default class Game extends Phaser.Scene {
   player: Player;
@@ -36,16 +36,16 @@ export default class Game extends Phaser.Scene {
     
     this.controls = createControls(this);
     
-    this.slime = createSlime(this);
+    this.slime = new Slime(this, 400, 200);
     // createSlime(this);
-    this.physics.add.collider(this.player.sprite, this.slime, this.handlePlayerSlimeCollision);
+    this.physics.add.collider(this.player.sprite, this.slime.sprite, this.handlePlayerSlimeCollision);
 
-    this.physics.add.collider(this.slime, this.water);
+    this.physics.add.collider(this.slime.sprite, this.water);
 
     this.time.addEvent({
       delay: 2000, // intervalo em milissegundos para mudar a direção (2 segundos neste exemplo)
       loop: true,
-      callback: changeSlimeDirection(this.slime),
+      callback: this.slime.changeSlimeDirection(),
       callbackScope: this.slime,
     });
   }
@@ -63,7 +63,7 @@ export default class Game extends Phaser.Scene {
   loadSprites() {
     Player.loadSprites(this);
     loadBulletSprites(this);
-    loadSlimeSprites(this);
+    Slime.loadSprites(this);
   }
   loadMapAssets() {
     this.load.image('tiles', './assets/map/grass.png');
