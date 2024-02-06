@@ -21,10 +21,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('tiles', './assets/map/grass.png');
     this.load.image('border', './assets/map/water.png');
     this.load.tilemapTiledJSON('map', './assets/map/map.json');
-
-    Player.loadSprites(this);
-    loadBulletSprites(this);
-    loadSlimeSprites(this);
+    this.loadSprites();
   }
   
   create ()
@@ -68,6 +65,11 @@ export default class Game extends Phaser.Scene {
     // slime.setVelocityX(0);
     // slime.setVelocityY(0);
     // slime.destroy()
+  }
+  loadSprites() {
+    Player.loadSprites(this);
+    loadBulletSprites(this);
+    loadSlimeSprites(this);
   }
 }
 

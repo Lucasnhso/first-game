@@ -9,7 +9,6 @@ export class Player {
 
   constructor(scene: Phaser.Scene, x: number, y: number){
     const idleKey = 'player_idle'
-    // super(scene, x, y, idleKey);
     this.idleKey = idleKey;
     this.scene = scene;
 
@@ -19,8 +18,6 @@ export class Player {
   private create(x: number, y: number): void {
     this.sprite = this.scene.physics.add.sprite(x, y, this.idleKey);
     this.createAnimations();
-  
-    // return player;
   }
   private createAnimations (): void {
     this.scene.anims.create({
