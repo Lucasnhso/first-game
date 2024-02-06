@@ -5,7 +5,7 @@ const spritesKey = {
 }
 
 export class Slime {
-  sprite: Phaser.Physics.Arcade.Sprite;
+  gameObject: Phaser.Physics.Arcade.Sprite;
   private scene: Phaser.Scene;
   
   constructor(scene: Phaser.Scene, x: number, y: number) {
@@ -16,8 +16,8 @@ export class Slime {
   
   private create(x: number, y: number): void {
     this.createAnimations();
-    this.sprite = this.scene.physics.add.sprite(x, y, spritesKey.idle).setScale(2);
-    this.sprite.anims.play(spritesKey.idle, true);
+    this.gameObject = this.scene.physics.add.sprite(x, y, spritesKey.idle).setScale(2);
+    this.gameObject.anims.play(spritesKey.idle, true);
     this.addMovimentation()
   }
   private createAnimations(): void {
@@ -37,7 +37,7 @@ export class Slime {
       delay: 2000,
       loop: true,
       callback: this.changeSlimeDirection(),
-      callbackScope: this.sprite,
+      callbackScope: this.gameObject,
     });
   }
   private changeSlimeDirection() {
@@ -48,11 +48,11 @@ export class Slime {
       const horizontalOrVertical = Phaser.Math.RND.pick(['X', 'Y']);
     
       if(horizontalOrVertical === 'X') {
-        this.sprite.setVelocityX(velocity);
-        this.sprite.setVelocityY(0);
+        this.gameObject.setVelocityX(velocity);
+        this.gameObject.setVelocityY(0);
       } else {
-        this.sprite.setVelocityX(0);
-        this.sprite.setVelocityY(velocity);
+        this.gameObject.setVelocityX(0);
+        this.gameObject.setVelocityY(velocity);
       }
     }
   }

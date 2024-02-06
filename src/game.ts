@@ -30,17 +30,17 @@ export default class Game extends Phaser.Scene {
     this.water.setCollisionByProperty({ collider: true});
 
     this.player = new Player(this, 200, 200);
-    this.physics.add.overlap(this.player.sprite, this.water);
+    this.physics.add.overlap(this.player.gameObject, this.water);
     
-    this.player.sprite.anims.play("player_idle", true);
+    this.player.gameObject.anims.play("player_idle", true);
     
     this.controls = createControls(this);
     
     this.slime = new Slime(this, 400, 200);
     // createSlime(this);
-    this.physics.add.collider(this.player.sprite, this.slime.sprite, this.handlePlayerSlimeCollision);
+    this.physics.add.collider(this.player.gameObject, this.slime.gameObject, this.handlePlayerSlimeCollision);
 
-    this.physics.add.collider(this.slime.sprite, this.water);
+    this.physics.add.collider(this.slime.gameObject, this.water);
   }
 
   update() {

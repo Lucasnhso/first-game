@@ -10,7 +10,7 @@ const spritesKey = {
 
 export class Player {
   private scene: Phaser.Scene;
-  sprite: PlayerSprite;
+  gameObject: PlayerSprite;
 
   constructor(scene: Phaser.Scene, x: number, y: number){
     this.scene = scene;
@@ -19,7 +19,7 @@ export class Player {
   }
 
   private create(x: number, y: number): void {
-    this.sprite = this.scene.physics.add.sprite(x, y, spritesKey.idle);
+    this.gameObject = this.scene.physics.add.sprite(x, y, spritesKey.idle);
     this.createAnimations();
   }
   private createAnimations (): void {
@@ -54,11 +54,11 @@ export class Player {
       repeat: 0
     });
   
-    this.sprite.on(
+    this.gameObject.on(
       'animationcomplete',
       (animation, frame) => {
         if (animation.key === spritesKey.attack) {
-          this.sprite.isAttacking = false;
+          this.gameObject.isAttacking = false;
         }
       },
       this.scene
