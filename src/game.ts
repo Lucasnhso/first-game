@@ -11,19 +11,15 @@ export default class Game extends Phaser.Scene {
   water: Phaser.Tilemaps.TilemapLayer;
   bullets = [];
 
-  constructor ()
-  {
+  constructor() {
     super('game');
   }
 
-  preload ()
-  {
+  preload() {
     this.loadMapAssets();
     this.loadSprites();
   }
-  
-  create ()
-  {
+  create() {
     const map = this.make.tilemap({ key: 'map' });
     const tilesetGrass = map.addTilesetImage('grass', 'tiles');
     const tilesetWater = map.addTilesetImage('water', 'border');
