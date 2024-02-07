@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { slimeSpriteKey } from '../utils/consts';
+import { defaultSlimeVelocity, slimeSpriteKey } from '../utils/consts';
 
 export class Slime {
   gameObject: Phaser.Physics.Arcade.Sprite;
@@ -39,9 +39,8 @@ export class Slime {
   }
   private changeSlimeDirection() {
     return () => {
-      const speed = 50;
       const direction = Phaser.Math.RND.pick([-1, 1]);
-      const velocity = speed * direction
+      const velocity = defaultSlimeVelocity * direction
       const horizontalOrVertical = Phaser.Math.RND.pick(['X', 'Y']);
     
       if(horizontalOrVertical === 'X') {
