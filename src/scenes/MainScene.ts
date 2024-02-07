@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { Player, Bullet, Slime } from '../entities';
 import { Controls } from '../input/Controls';
+import { playerSpriteKeys } from '../utils/consts';
 
 export default class MainScene extends Phaser.Scene {
   player: Player;
@@ -30,7 +31,7 @@ export default class MainScene extends Phaser.Scene {
     this.player = new Player(this, 200, 200);
     this.physics.add.overlap(this.player.gameObject, this.water);
     
-    this.player.gameObject.anims.play("player_idle", true);
+    this.player.gameObject.anims.play(playerSpriteKeys.idle, true);
     
     this.controls = new Controls(this, this.player);
     
