@@ -1,14 +1,15 @@
 import { Player, Bullet } from '../entities';
+import MainScene from '../scenes/MainScene';
 import { defaultPlayerVelocity, playerSpriteKeys } from '../utils/consts';
 
 type Movement = 'up' | 'down' | 'left' | 'right' | 'attack';
 
 export class Controls {
-  private scene: Phaser.Scene;
+  private scene: MainScene;
   private player: Player;
   private controls: Phaser.Types.Input.Keyboard.CursorKeys
   
-  constructor(scene: Phaser.Scene, player: Player) {
+  constructor(scene: MainScene, player: Player) {
     this.scene = scene;
     this.player = player;
     this.controls = scene.input.keyboard.createCursorKeys();
@@ -72,43 +73,3 @@ export class Controls {
     return moveExecutions[movement]();
   };
 }
-
-// export const configControls = (
-//   player: Player,
-//   controls: Phaser.Types.Input.Keyboard.CursorKeys,
-//   scene: Phaser.Scene
-// ): void => {
-//   player.gameObject.setVelocityX(0);
-//   player.gameObject.setVelocityY(0);
-
-//   ;
-// };
-
-// const moveRight = (player: Player): void => {
-//   player.gameObject.setFlipX(false);
-//   player.gameObject.anims.play('player_walk', true);
-//   player.gameObject.setVelocityX(defaultPlayerVelocity);
-// };
-
-// const moveLeft = (player: Player): void => {
-//   player.gameObject.setFlipX(true);
-//   player.gameObject.anims.play('player_walk', true);
-//   player.gameObject.setVelocityX(-defaultPlayerVelocity);
-// };
-
-// const moveUp = (player: Player): void => {
-//   player.gameObject.anims.play('player_walk', true);
-//   player.gameObject.setVelocityY(-defaultPlayerVelocity);
-// };
-
-// const moveDown = (player: Player): void => {
-//   player.gameObject.anims.play('player_walk', true);
-//   player.gameObject.setVelocityY(defaultPlayerVelocity);
-// };
-
-// const attack = (player: Player, scene: Phaser.Scene): void => {
-//   player.gameObject.isAttacking = true;
-//   player.gameObject.anims.play('player_attack', true);
-//   new Bullet(player, scene);
-// };
-

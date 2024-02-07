@@ -1,26 +1,43 @@
 import * as Phaser from 'phaser';
 import { defaultSlimeVelocity, slimeSpriteKey } from '../utils/consts';
+import MainScene from '../scenes/MainScene';
+import { Player } from './Player';
 
+// type CustomEvents = {
+//   [key: string]: Phaser.Time.TimerEvent
+// }
 export class Slime {
   gameObject: Phaser.Physics.Arcade.Sprite;
-  private scene: Phaser.Scene;
+  changeDirectionEvent: Phaser.Time.TimerEvent
+  private scene: MainScene;
+  private player: Player;
+  private water;
+  private handlePlayerSlimeCollision;
   
-  constructor(scene: Phaser.Scene, x: number, y: number) {
+  constructor(scene: MainScene, x: number, y: number) {
     this.scene = scene;
+    this.player = scene.player
+    this.water = scene.water;
+    this.handlePlayerSlimeCollision = scene.handlePlayerSlimeCollision;
 
     this.create(x, y);
+    this.addCollision();
+
+    this.gameObject.on('destroy', () => {
+      this.scene.slimes = this.scene.slimes.filter(slime => slime !== this);
+      this.scene.time.removeEvent(this.changeDirectionEvent);
+    })
   }
   
   private create(x: number, y: number): void {
-    this.createAnimations();
     this.gameObject = this.scene.physics.add.sprite(x, y, slimeSpriteKey).setScale(2);
     this.gameObject.anims.play(slimeSpriteKey, true);
-    this.addMovimentation()
+    this.addRandomMovimentation()
   }
-  private createAnimations(): void {
-    this.scene.anims.create({
+  static createAnimations(scene: Phaser.Scene): void {
+    scene.anims.create({
       key: slimeSpriteKey,
-      frames: this.scene.anims.generateFrameNames(slimeSpriteKey, {
+      frames: scene.anims.generateFrameNames(slimeSpriteKey, {
         start: 0,
         end: 6
       }),
@@ -29,8 +46,19 @@ export class Slime {
   
     });
   }
-  private addMovimentation() {
-    this.scene.time.addEvent({
+  private addCollision() {
+    this.addPlayerCollision();
+    this.scene.physics.add.collider(this.gameObject, this.water);
+  }
+  private addPlayerCollision() {
+    this.scene.physics.add.collider(
+      this.player.gameObject,
+      this.gameObject,
+      () => this.handlePlayerSlimeCollision(this, this.player)
+    );
+  }
+  private addRandomMovimentation() {
+    this.changeDirectionEvent = this.scene.time.addEvent({
       delay: 2000,
       loop: true,
       callback: this.changeSlimeDirection(),

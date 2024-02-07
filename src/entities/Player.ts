@@ -1,13 +1,14 @@
+import MainScene from "../scenes/MainScene";
 import { playerSpriteKeys } from "../utils/consts";
 
 interface PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   isAttacking?: boolean;
 }
 export class Player {
-  private scene: Phaser.Scene;
+  private scene: MainScene;
   gameObject: PlayerSprite;
   
-  constructor(scene: Phaser.Scene, x: number, y: number){
+  constructor(scene: MainScene, x: number, y: number){
     this.scene = scene;
 
     this.create(x, y);
@@ -16,6 +17,7 @@ export class Player {
   private create(x: number, y: number): void {
     this.gameObject = this.scene.physics.add.sprite(x, y, playerSpriteKeys.idle);
     this.createAnimations();
+    this.gameObject.anims.play(playerSpriteKeys.idle, true);
   }
   private createAnimations (): void {
     this.scene.anims.create({

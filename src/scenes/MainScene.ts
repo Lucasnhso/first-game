@@ -5,10 +5,11 @@ import { playerSpriteKeys } from '../utils/consts';
 
 export default class MainScene extends Phaser.Scene {
   player: Player;
-  slime:  Slime;
+  slimes:  Slime[] = [];
   controls: Controls;
   water: Phaser.Tilemaps.TilemapLayer;
-  bullets = [];
+  bullets: Bullet[] = [];
+  points: number = 0;
 
   constructor() {
     super('main-scene');
@@ -19,6 +20,44 @@ export default class MainScene extends Phaser.Scene {
     this.loadSprites();
   }
   create() {
+    this.createMap();
+    Slime.createAnimations(this)
+
+    this.player = new Player(this, 200, 200);
+    this.physics.add.collider(this.player.gameObject, this.water);
+    
+    this.controls = new Controls(this, this.player);
+    this.slimes.push(new Slime(this, 400, 200))
+    this.time.addEvent({
+      delay: 2000,
+      loop: true,
+      callback: () => {this.slimes.push(new Slime(this, 400, 200))},
+    });
+  }
+
+  update() {
+    this.controls.config();
+  }
+
+  handlePlayerSlimeCollision(slime: Slime, player: Player) {
+    console.log('encostou');
+    slime.gameObject.setVelocity(0, 0);
+    // slime.gameObject.stop()
+    // slime.setVelocityX(0);
+    // slime.setVelocityY(0);
+    // slime.destroy()
+  }
+  private loadSprites() {
+    Player.loadSprites(this);
+    Bullet.loadSprites(this);
+    Slime.loadSprites(this);
+  }
+  private loadMapAssets() {
+    this.load.image('tiles', './assets/map/grass.png');
+    this.load.image('border', './assets/map/water.png');
+    this.load.tilemapTiledJSON('map', './assets/map/map.json');
+  }
+  private createMap() {
     const map = this.make.tilemap({ key: 'map' });
     const tilesetGrass = map.addTilesetImage('grass', 'tiles');
     const tilesetWater = map.addTilesetImage('water', 'border');
@@ -27,39 +66,5 @@ export default class MainScene extends Phaser.Scene {
     this.water = map.createLayer('water', tilesetWater, 0, 0);
 
     this.water.setCollisionByProperty({ collider: true});
-
-    this.player = new Player(this, 200, 200);
-    this.physics.add.collider(this.player.gameObject, this.water);
-    
-    this.player.gameObject.anims.play(playerSpriteKeys.idle, true);
-    
-    this.controls = new Controls(this, this.player);
-    
-    this.slime = new Slime(this, 400, 200);
-    
-    this.physics.add.collider(this.player.gameObject, this.slime.gameObject, this.handlePlayerSlimeCollision);
-
-    this.physics.add.collider(this.slime.gameObject, this.water);
-  }
-
-  update() {
-    this.controls.config();
-  }
-
-  handlePlayerSlimeCollision(slime, player) {
-    console.log('encostou');
-    // slime.setVelocityX(0);
-    // slime.setVelocityY(0);
-    // slime.destroy()
-  }
-  loadSprites() {
-    Player.loadSprites(this);
-    Bullet.loadSprites(this);
-    Slime.loadSprites(this);
-  }
-  loadMapAssets() {
-    this.load.image('tiles', './assets/map/grass.png');
-    this.load.image('border', './assets/map/water.png');
-    this.load.tilemapTiledJSON('map', './assets/map/map.json');
   }
 }
