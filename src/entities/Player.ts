@@ -1,5 +1,6 @@
 import MainScene from "../scenes/MainScene";
 import { playerSpriteKeys } from "../utils/consts";
+import { generateRandomCoordinates } from "../utils/generateRandomCoordinates";
 
 interface PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   isAttacking?: boolean;
@@ -8,9 +9,9 @@ export class Player {
   private scene: MainScene;
   gameObject: PlayerSprite;
   
-  constructor(scene: MainScene, x: number, y: number){
+  constructor(scene: MainScene){
     this.scene = scene;
-
+    const { x, y } = generateRandomCoordinates();
     this.create(x, y);
   }
 

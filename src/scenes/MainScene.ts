@@ -23,15 +23,15 @@ export default class MainScene extends Phaser.Scene {
     this.createMap();
     Slime.createAnimations(this)
 
-    this.player = new Player(this, 200, 200);
+    this.player = new Player(this);
     this.physics.add.collider(this.player.gameObject, this.water);
     
     this.controls = new Controls(this, this.player);
-    this.slimes.push(new Slime(this, 400, 200))
+    this.slimes.push(new Slime(this))
     this.time.addEvent({
       delay: 2000,
       loop: true,
-      callback: () => {this.slimes.push(new Slime(this, 400, 200))},
+      callback: () => {this.slimes.push(new Slime(this))},
     });
   }
 

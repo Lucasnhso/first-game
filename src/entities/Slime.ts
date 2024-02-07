@@ -2,10 +2,8 @@ import * as Phaser from 'phaser';
 import { defaultSlimeVelocity, slimeSpriteKey } from '../utils/consts';
 import MainScene from '../scenes/MainScene';
 import { Player } from './Player';
+import { generateRandomCoordinates } from '../utils/generateRandomCoordinates';
 
-// type CustomEvents = {
-//   [key: string]: Phaser.Time.TimerEvent
-// }
 export class Slime {
   gameObject: Phaser.Physics.Arcade.Sprite;
   changeDirectionEvent: Phaser.Time.TimerEvent
@@ -14,11 +12,12 @@ export class Slime {
   private water;
   private handlePlayerSlimeCollision;
   
-  constructor(scene: MainScene, x: number, y: number) {
+  constructor(scene: MainScene) {
     this.scene = scene;
     this.player = scene.player
     this.water = scene.water;
     this.handlePlayerSlimeCollision = scene.handlePlayerSlimeCollision;
+    const { x, y } = generateRandomCoordinates();
 
     this.create(x, y);
     this.addCollision();
