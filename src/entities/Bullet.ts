@@ -34,8 +34,7 @@ export class Bullet {
       (bullet, slime) => {
         bullet.destroy(true);
         slime.destroy(true);
-        this.scene.points++
-        console.log(this.scene.points)
+        this.scene.gainScore();
       }
     );
   }

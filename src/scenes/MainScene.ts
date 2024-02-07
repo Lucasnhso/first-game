@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser';
 import { Player, Bullet, Slime } from '../entities';
 import { Controls } from '../input/Controls';
-import { playerSpriteKeys } from '../utils/consts';
 
 export default class MainScene extends Phaser.Scene {
   player: Player;
@@ -9,7 +8,8 @@ export default class MainScene extends Phaser.Scene {
   controls: Controls;
   water: Phaser.Tilemaps.TilemapLayer;
   bullets: Bullet[] = [];
-  points: number = 0;
+  score: number = 0;
+  private scoreText: Phaser.GameObjects.Text
 
   constructor() {
     super('main-scene');
@@ -22,7 +22,11 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.createMap();
     Slime.createAnimations(this)
-
+    this.scoreText = this.add.text(10, 5, 'Pontos: 0', {
+      fontSize: '16px',
+      color: '#fff'
+    });
+    
     this.player = new Player(this);
     this.physics.add.collider(this.player.gameObject, this.water);
     
@@ -33,10 +37,18 @@ export default class MainScene extends Phaser.Scene {
       loop: true,
       callback: () => {this.slimes.push(new Slime(this))},
     });
+    
   }
 
   update() {
     this.controls.config();
+  }
+  gainScore() {
+    this.score ++
+    this.updateScoreText()
+  }
+  updateScoreText() {
+    this.scoreText.setText(`Pontos: ${this.score}`);
   }
 
   handlePlayerSlimeCollision(slime: Slime, player: Player) {
