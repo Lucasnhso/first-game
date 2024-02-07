@@ -29,7 +29,7 @@ export default class MainScene extends Phaser.Scene {
     this.water.setCollisionByProperty({ collider: true});
 
     this.player = new Player(this, 200, 200);
-    this.physics.add.overlap(this.player.gameObject, this.water);
+    this.physics.add.collider(this.player.gameObject, this.water);
     
     this.player.gameObject.anims.play(playerSpriteKeys.idle, true);
     
