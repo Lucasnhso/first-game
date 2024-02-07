@@ -5,3 +5,4 @@ export const playerSpriteKeys = {
 };
 export const slimeSpriteKey = 'slime_idle';
 export const bulletImageKey = 'bullet';
+export const defaultPlayerVelocity = 200;

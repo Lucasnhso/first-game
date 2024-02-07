@@ -3,11 +3,10 @@ import { playerSpriteKeys } from "../utils/consts";
 interface PlayerSprite extends Phaser.Physics.Arcade.Sprite {
   isAttacking?: boolean;
 }
-
 export class Player {
   private scene: Phaser.Scene;
   gameObject: PlayerSprite;
-
+  
   constructor(scene: Phaser.Scene, x: number, y: number){
     this.scene = scene;
 

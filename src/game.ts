@@ -1,11 +1,11 @@
 import * as Phaser from 'phaser';
 import { Player, Bullet, Slime } from './entities';
-import { createControls, configControls } from './controls';
+import { Controls } from './input/Controls';
 
 export default class Game extends Phaser.Scene {
   player: Player;
   slime:  Slime;
-  controls: Phaser.Types.Input.Keyboard.CursorKeys;
+  controls: Controls;
   water: Phaser.Tilemaps.TilemapLayer;
   bullets = [];
 
@@ -32,17 +32,17 @@ export default class Game extends Phaser.Scene {
     
     this.player.gameObject.anims.play("player_idle", true);
     
-    this.controls = createControls(this);
+    this.controls = new Controls(this, this.player);
     
     this.slime = new Slime(this, 400, 200);
-    // createSlime(this);
+    
     this.physics.add.collider(this.player.gameObject, this.slime.gameObject, this.handlePlayerSlimeCollision);
 
     this.physics.add.collider(this.slime.gameObject, this.water);
   }
 
   update() {
-    configControls(this.player, this.controls, this);
+    this.controls.config();
   }
 
   handlePlayerSlimeCollision(slime, player) {
