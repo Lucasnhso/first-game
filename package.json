@@ -1,5 +1,5 @@
 {
-    "name": "first-game",
+    "name": "slime-kill-game",
     "version": "0.0.1",
     "description": "",
     "main": "src/game.ts",
