@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { Player, Bullet, Slime } from '../entities';
 import { Controls } from '../input/Controls';
+import { defaultSlimeSpawnInterval } from '../utils/consts';
 
 export default class MainScene extends Phaser.Scene {
   player: Player;
@@ -8,6 +9,8 @@ export default class MainScene extends Phaser.Scene {
   controls: Controls;
   water: Phaser.Tilemaps.TilemapLayer;
   bullets: Bullet[] = [];
+  private difficulty: number;
+  private slimeSpawnEvent: Phaser.Time.TimerEvent
   score: number;
   private scoreText: Phaser.GameObjects.Text;
 
@@ -17,6 +20,7 @@ export default class MainScene extends Phaser.Scene {
 
   init() {
     this.score = 0;
+    this.difficulty = 1;
   }
   preload() {
     this.loadMapAssets();
@@ -40,16 +44,35 @@ export default class MainScene extends Phaser.Scene {
     
     this.controls = new Controls(this, this.player);
     this.slimes.push(new Slime(this))
-    this.time.addEvent({
-      delay: 1500,
-      loop: true,
-      callback: () => {this.slimes.push(new Slime(this))},
+
+    this.slimeSpawnEvent = this.time.addEvent({
+      delay: defaultSlimeSpawnInterval,
+      loop: false,
+      callback: this.spawnSlime,
     });
-    
+    this.time.addEvent({
+      delay: 3000,
+      loop: true,
+      callback: () => {
+        this.difficulty += 0.1;
+      },
+    });
   }
 
   update() {
     this.controls.config();
+  }
+  private spawnSlime = (): void => {
+    this.createSlime();
+    this.slimeSpawnEvent.reset({
+      delay: defaultSlimeSpawnInterval / this.difficulty,
+      callback: this.spawnSlime,
+      callbackScope: this,
+      loop: false,
+    });
+  }
+  private createSlime(): void {
+    this.slimes.push(new Slime(this));
   }
   gainScore() {
     this.score ++
