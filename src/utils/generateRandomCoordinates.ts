@@ -6,7 +6,7 @@ const minY = 62;
 const maxY = 575;
 
 export function generateRandomCoordinates(blackListX?: number, blackListY?: number) {
-  const minDistance = 50;
+  const minDistance = 80;
   const x = Phaser.Math.RND.between(minX, maxX);
   const y = Phaser.Math.RND.between(minY, maxY);
 
