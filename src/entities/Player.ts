@@ -21,7 +21,7 @@ export class Player {
 
     this.gameObject.on(
       'animationcomplete',
-      (animation, frame) => {
+      (animation: Phaser.Animations.Animation, frame: Phaser.Animations.AnimationFrame) => {
         if (animation.key === playerSpriteKeys.attack) {
           this.gameObject.isAttacking = false;
         }
