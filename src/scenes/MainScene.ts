@@ -28,7 +28,7 @@ export default class MainScene extends Phaser.Scene {
   }
   create() {
     this.createMap();
-    Slime.createAnimations(this)
+    this.createAnimations();
     this.scoreText = this.add.text(10, 5, 'Pontos: 0', {
       fontSize: '16px',
       color: '#fff'
@@ -80,6 +80,10 @@ export default class MainScene extends Phaser.Scene {
   }
   updateScoreText() {
     this.scoreText.setText(`Pontos: ${this.score}`);
+  }
+  private createAnimations() {
+    Player.createAnimations(this)
+    Slime.createAnimations(this);
   }
   private loadSprites() {
     Player.loadSprites(this);

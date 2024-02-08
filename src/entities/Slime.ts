@@ -32,16 +32,17 @@ export class Slime {
     this.addRandomMovimentation()
   }
   static createAnimations(scene: Phaser.Scene): void {
-    scene.anims.create({
-      key: slimeSpriteKey,
-      frames: scene.anims.generateFrameNames(slimeSpriteKey, {
-        start: 0,
-        end: 6
-      }),
-      frameRate: 8,
-      repeat: -1,
-  
-    });
+    if(!scene.anims.exists(slimeSpriteKey)) {
+      scene.anims.create({
+        key: slimeSpriteKey,
+        frames: scene.anims.generateFrameNames(slimeSpriteKey, {
+          start: 0,
+          end: 6
+        }),
+        frameRate: 8,
+        repeat: -1,
+      });
+    }
   }
   private addCollision() {
     this.addPlayerCollision();

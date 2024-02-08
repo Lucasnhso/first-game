@@ -17,41 +17,8 @@ export class Player {
 
   private create(x: number, y: number): void {
     this.gameObject = this.scene.physics.add.sprite(x, y, playerSpriteKeys.idle);
-    this.createAnimations();
     this.gameObject.anims.play(playerSpriteKeys.idle, true);
-  }
-  private createAnimations (): void {
-    this.scene.anims.create({
-      key: playerSpriteKeys.idle,
-      frames: this.scene.anims.generateFrameNames(playerSpriteKeys.idle, {
-        start: 0,
-        end: 7
-      }),
-      frameRate: 8,
-      repeat: -1,
-      yoyo: true
-    });
-  
-    this.scene.anims.create({
-      key: playerSpriteKeys.walk,
-      frames: this.scene.anims.generateFrameNames(playerSpriteKeys.walk, {
-        start: 0,
-        end: 6
-      }),
-      frameRate: 8,
-      repeat: -1
-    });
-  
-    this.scene.anims.create({
-      key: playerSpriteKeys.attack,
-      frames: this.scene.anims.generateFrameNames(playerSpriteKeys.attack, {
-        start: 0,
-        end: 3
-      }),
-      frameRate: 12,
-      repeat: 0
-    });
-  
+
     this.gameObject.on(
       'animationcomplete',
       (animation, frame) => {
@@ -61,6 +28,42 @@ export class Player {
       },
       this.scene
     );
+  }
+  static createAnimations (scene: Phaser.Scene): void {
+    if(!scene.anims.exists(playerSpriteKeys.idle)) {
+      scene.anims.create({
+        key: playerSpriteKeys.idle,
+        frames: scene.anims.generateFrameNames(playerSpriteKeys.idle, {
+          start: 0,
+          end: 7
+        }),
+        frameRate: 8,
+        repeat: -1,
+        yoyo: true
+      });
+    }
+    if(!scene.anims.exists(playerSpriteKeys.walk)) {
+      scene.anims.create({
+        key: playerSpriteKeys.walk,
+        frames: scene.anims.generateFrameNames(playerSpriteKeys.walk, {
+          start: 0,
+          end: 6
+        }),
+        frameRate: 8,
+        repeat: -1
+      });
+    }
+    if(!scene.anims.exists(playerSpriteKeys.attack)) {
+      scene.anims.create({
+        key: playerSpriteKeys.attack,
+        frames: scene.anims.generateFrameNames(playerSpriteKeys.attack, {
+          start: 0,
+          end: 3
+        }),
+        frameRate: 12,
+        repeat: 0
+      });
+    }
   };
 
   static loadSprites(scene: Phaser.Scene): void {
