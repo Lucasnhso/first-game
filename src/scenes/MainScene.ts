@@ -8,13 +8,16 @@ export default class MainScene extends Phaser.Scene {
   controls: Controls;
   water: Phaser.Tilemaps.TilemapLayer;
   bullets: Bullet[] = [];
-  score: number = 0;
-  private scoreText: Phaser.GameObjects.Text
+  score: number;
+  private scoreText: Phaser.GameObjects.Text;
 
   constructor() {
     super('main');
   }
 
+  init() {
+    this.score = 0;
+  }
   preload() {
     this.loadMapAssets();
     this.loadSprites();
@@ -26,6 +29,11 @@ export default class MainScene extends Phaser.Scene {
       fontSize: '16px',
       color: '#fff'
     });
+    const highScoreCache: number = this.cache.text.get('highScore') || 0;
+    this.add.text(150, 5, `Recorde: ${ highScoreCache }`, {
+      fontSize: '16px',
+      color: '#fff'
+    });
     
     this.player = new Player(this);
     this.physics.add.collider(this.player.gameObject, this.water);
@@ -33,7 +41,7 @@ export default class MainScene extends Phaser.Scene {
     this.controls = new Controls(this, this.player);
     this.slimes.push(new Slime(this))
     this.time.addEvent({
-      delay: 2000,
+      delay: 1500,
       loop: true,
       callback: () => {this.slimes.push(new Slime(this))},
     });
