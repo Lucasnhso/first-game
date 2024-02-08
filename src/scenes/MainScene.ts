@@ -74,6 +74,9 @@ export default class MainScene extends Phaser.Scene {
   private createSlime(): void {
     this.slimes.push(new Slime(this));
   }
+  gameOver() {
+    this.scene.start('start_end_state', { score: this.score, isGameOver: true });
+  }
   gainScore() {
     this.score ++
     this.updateScoreText()

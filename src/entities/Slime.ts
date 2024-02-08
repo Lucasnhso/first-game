@@ -57,7 +57,7 @@ export class Slime {
     );
   }
   handlePlayerSlimeCollision = () => {
-    this.scene.scene.start('game-over', { score: this.scene.score})
+    this.scene.gameOver();
   }
   private addRandomMovimentation() {
     this.changeDirectionEvent = this.scene.time.addEvent({
