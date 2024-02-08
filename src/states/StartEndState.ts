@@ -30,6 +30,10 @@ export default class StartEndState extends Phaser.Scene {
     this.input.keyboard.on('keydown-SPACE', this.startGame, this);
     this.input.keyboard.on('keydown-ENTER', this.startGame, this);
   }
+  destroy() {
+    this.input.keyboard.off('keydown-SPACE', this.startGame, this);
+    this.input.keyboard.off('keydown-ENTER', this.startGame, this);
+  }
   private createScreenElements() {
     this.createTitle()
 
