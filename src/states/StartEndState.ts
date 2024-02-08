@@ -26,6 +26,9 @@ export default class StartEndState extends Phaser.Scene {
     this.screenWidth = Number(this.sys.game.config.width);
 
     this.createScreenElements();
+
+    this.input.keyboard.on('keydown-SPACE', this.startGame, this);
+    this.input.keyboard.on('keydown-ENTER', this.startGame, this);
   }
   private createScreenElements() {
     this.createTitle()
@@ -79,8 +82,11 @@ export default class StartEndState extends Phaser.Scene {
     });
     
     newGameButton.on('pointerdown', () => {
-      this.scene.start('main');
+      this.startGame();
     });
+  }
+  private startGame() {
+    this.scene.start('main');
   }
   private setCache() {
     const highScoreCache: number = this.cache.text.get('highScore');
