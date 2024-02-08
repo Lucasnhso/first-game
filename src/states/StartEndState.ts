@@ -1,6 +1,6 @@
 import * as Phaser from 'phaser';
 
-export interface GameOverStateData {
+export interface StartEndData {
   score: number;
   isGameOver: boolean;
 }
@@ -15,12 +15,12 @@ export default class StartState extends Phaser.Scene {
     super('start_end_state');
   }
   
-  init({ score }: GameOverStateData) {
+  init({ score }: StartEndData) {
     this.score = score;
     this.setCache();
   }
   
-  create({ isGameOver }: GameOverStateData) {
+  create({ isGameOver }: StartEndData) {
     this.isGameOver = isGameOver;
     this.screenHeight = Number(this.sys.game.config.height);
     this.screenWidth = Number(this.sys.game.config.width);
