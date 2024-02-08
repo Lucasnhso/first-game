@@ -29,6 +29,19 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.createMap();
     this.createAnimations();
+    this.addScreenElements();
+    
+    this.player = new Player(this);
+    this.physics.add.collider(this.player.gameObject, this.water);
+    
+    this.controls = new Controls(this, this.player);
+    this.addSlimeGeneration();
+  }
+
+  update() {
+    this.controls.config();
+  }
+  private addScreenElements() {
     this.scoreText = this.add.text(10, 5, 'Pontos: 0', {
       fontSize: '16px',
       color: '#fff'
@@ -38,11 +51,8 @@ export default class MainScene extends Phaser.Scene {
       fontSize: '16px',
       color: '#fff'
     });
-    
-    this.player = new Player(this);
-    this.physics.add.collider(this.player.gameObject, this.water);
-    
-    this.controls = new Controls(this, this.player);
+  }
+  private addSlimeGeneration(){
     this.slimes.push(new Slime(this))
 
     this.slimeSpawnEvent = this.time.addEvent({
@@ -57,10 +67,6 @@ export default class MainScene extends Phaser.Scene {
         this.difficulty += 0.1;
       },
     });
-  }
-
-  update() {
-    this.controls.config();
   }
   private spawnSlime = (): void => {
     this.createSlime();
@@ -78,8 +84,8 @@ export default class MainScene extends Phaser.Scene {
     this.scene.start('start_end_state', { score: this.score, isGameOver: true });
   }
   gainScore() {
-    this.score ++
-    this.updateScoreText()
+    this.score ++;
+    this.updateScoreText();
   }
   updateScoreText() {
     this.scoreText.setText(`Pontos: ${this.score}`);
