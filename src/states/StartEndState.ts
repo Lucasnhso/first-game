@@ -4,7 +4,7 @@ export interface StartEndData {
   score: number;
   isGameOver: boolean;
 }
-export default class StartState extends Phaser.Scene {
+export default class StartEndState extends Phaser.Scene {
   private score: number;
   private highScore: number;
   private screenHeight: number;
