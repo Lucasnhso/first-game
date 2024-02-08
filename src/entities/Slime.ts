@@ -15,7 +15,7 @@ export class Slime {
     this.scene = scene;
     this.player = scene.player
     this.water = scene.water;
-    const { x, y } = generateRandomCoordinates();
+    const { x, y } = generateRandomCoordinates(this.player.gameObject.x, this.player.gameObject.y);
 
     this.create(x, y);
     this.addCollision();
@@ -29,7 +29,8 @@ export class Slime {
   private create(x: number, y: number): void {
     this.gameObject = this.scene.physics.add.sprite(x, y, slimeSpriteKey).setScale(2);
     this.gameObject.anims.play(slimeSpriteKey, true);
-    this.addRandomMovimentation()
+    this.changeSlimeDirection()
+    this.addRandomMovimentation();
   }
   static createAnimations(scene: Phaser.Scene): void {
     if(!scene.anims.exists(slimeSpriteKey)) {
@@ -62,23 +63,21 @@ export class Slime {
     this.changeDirectionEvent = this.scene.time.addEvent({
       delay: 2000,
       loop: true,
-      callback: this.changeSlimeDirection(),
+      callback: () => this.changeSlimeDirection(),
       callbackScope: this.gameObject,
     });
   }
   private changeSlimeDirection() {
-    return () => {
-      const direction = Phaser.Math.RND.pick([-1, 1]);
-      const velocity = defaultSlimeVelocity * direction
-      const horizontalOrVertical = Phaser.Math.RND.pick(['X', 'Y']);
-    
-      if(horizontalOrVertical === 'X') {
-        this.gameObject.setVelocityX(velocity);
-        this.gameObject.setVelocityY(0);
-      } else {
-        this.gameObject.setVelocityX(0);
-        this.gameObject.setVelocityY(velocity);
-      }
+    const direction = Phaser.Math.RND.pick([-1, 1]);
+    const velocity = defaultSlimeVelocity * direction
+    const horizontalOrVertical = Phaser.Math.RND.pick(['X', 'Y']);
+  
+    if(horizontalOrVertical === 'X') {
+      this.gameObject.setVelocityX(velocity);
+      this.gameObject.setVelocityY(0);
+    } else {
+      this.gameObject.setVelocityX(0);
+      this.gameObject.setVelocityY(velocity);
     }
   }
   static loadSprites(scene: Phaser.Scene): void {
