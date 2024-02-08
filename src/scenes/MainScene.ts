@@ -12,7 +12,7 @@ export default class MainScene extends Phaser.Scene {
   private scoreText: Phaser.GameObjects.Text
 
   constructor() {
-    super('main-scene');
+    super('main');
   }
 
   preload() {
@@ -49,15 +49,6 @@ export default class MainScene extends Phaser.Scene {
   }
   updateScoreText() {
     this.scoreText.setText(`Pontos: ${this.score}`);
-  }
-
-  handlePlayerSlimeCollision(slime: Slime, player: Player) {
-    console.log('encostou');
-    slime.gameObject.setVelocity(0, 0);
-    // slime.gameObject.stop()
-    // slime.setVelocityX(0);
-    // slime.setVelocityY(0);
-    // slime.destroy()
   }
   private loadSprites() {
     Player.loadSprites(this);

@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import MainScene from "./scenes/MainScene";
+import GameOverState from './states/GameOver';
 
 const config = {
   pixelArt: true,
@@ -7,7 +8,7 @@ const config = {
   backgroundColor: '#125555',
   width: 800,
   height: 640,
-  scene: MainScene,
+  scene: [MainScene, GameOverState],
   physics: {
     default: 'arcade',
     arcade: {

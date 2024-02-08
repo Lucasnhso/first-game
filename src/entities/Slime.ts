@@ -10,13 +10,11 @@ export class Slime {
   private scene: MainScene;
   private player: Player;
   private water;
-  private handlePlayerSlimeCollision;
   
   constructor(scene: MainScene) {
     this.scene = scene;
     this.player = scene.player
     this.water = scene.water;
-    this.handlePlayerSlimeCollision = scene.handlePlayerSlimeCollision;
     const { x, y } = generateRandomCoordinates();
 
     this.create(x, y);
@@ -53,8 +51,11 @@ export class Slime {
     this.scene.physics.add.collider(
       this.player.gameObject,
       this.gameObject,
-      () => this.handlePlayerSlimeCollision(this, this.player)
+      this.handlePlayerSlimeCollision
     );
+  }
+  handlePlayerSlimeCollision = () => {
+    this.scene.scene.start('game-over', { score: this.scene.score})
   }
   private addRandomMovimentation() {
     this.changeDirectionEvent = this.scene.time.addEvent({
