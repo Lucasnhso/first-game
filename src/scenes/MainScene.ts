@@ -46,7 +46,7 @@ export default class MainScene extends Phaser.Scene {
       fontSize: '16px',
       color: '#fff'
     });
-    const highScoreCache: number = this.cache.text.get('highScore') || 0;
+    const highScoreCache = Number(localStorage.getItem('highScore'));
     this.add.text(150, 5, `Recorde: ${ highScoreCache }`, {
       fontSize: '16px',
       color: '#fff'

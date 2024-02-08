@@ -93,10 +93,11 @@ export default class StartEndState extends Phaser.Scene {
     this.scene.start('main');
   }
   private setCache() {
-    const highScoreCache: number = this.cache.text.get('highScore');
+    let highScoreCacheString = localStorage.getItem('highScore') ;
+    const highScoreCache = !highScoreCacheString ? 0 : Number(highScoreCacheString);
     
-    if(!highScoreCache || this.score > highScoreCache) {
-      this.cache.text.add('highScore', this.score);
+    if(this.score > highScoreCache) {
+      localStorage.setItem('highScore', String(this.score ));
       this.highScore = this.score;
     } else {
       this.highScore = highScoreCache;
